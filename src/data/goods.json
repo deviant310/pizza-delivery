@@ -1,0 +1,110 @@
+{
+  "111": {
+    "id": 111,
+    "name": "Pepperoni",
+    "type": "product",
+    "description": "Pepperoni is an American variety of salami, made from a cured mixture of pork and beef seasoned with paprika or other chili pepper. Pepperoni is characteristically soft, slightly smoky, and bright red in color. Thinly sliced pepperoni is a popular pizza topping in American pizzerias.",
+    "prices": {
+      "USD": 1.55,
+      "EUR": 1.99
+    },
+    "image": "",
+    "active": true
+  },
+  "222": {
+    "id": 222,
+    "name": "4 cheese",
+    "type": "product",
+    "description": "This pizza comes originally from Rome and is called pizza quattro formaggi. The cheeses used are mozzarella, stracchino, fontina and gorgonzola.",
+    "prices": {
+      "USD": 1.69,
+      "EUR": 2.15
+    },
+    "image": "",
+    "active": true
+  },
+  "333": {
+    "id": 333,
+    "name": "Margherita",
+    "type": "product",
+    "description": "Pizza Margherita (more commonly known in English as Margherita pizza) is a typical Neapolitan pizza, made with San Marzano tomatoes, mozzarella cheese, fresh basil, salt and extra-virgin olive oil. Traditionally, it is made with fior di latte (cow's milk mozzarella) rather than buffalo mozzarella.",
+    "prices": {
+      "USD": 1.34,
+      "EUR": 1.87
+    },
+    "image": "",
+    "active": true
+  },
+  "444": {
+    "id": 444,
+    "name": "Capricciosa",
+    "type": "product",
+    "description": "The name of this pizza literally translates to capricious, and seems quite appropriate, considering that the toppings tend to vary from one region to another. Capricciosa is made with an ever-changing combination of ingredients which most often include tomatoes, mozzarella, mushrooms, artichokes, ham, olives, and a sliced hard-boiled egg, whereas in central and northern Italy, it is not uncommon to add capers, sausages, and sometimes even anchovies.",
+    "prices": {
+      "USD": 1.76,
+      "EUR": 2.34
+    },
+    "image": "",
+    "active": true
+  }, 
+  "555": {
+    "id": 555,
+    "name": "Marinara",
+    "type": "product",
+    "description": "Marinara is a Neapolitan pizza with a topping of tomatoes, oregano, garlic, extra virgin olive oil, and sometimes fresh basil. Its name is not derived from the popular belief that it has seafood on it (because it does not), but because it was a staple food of the fishermen who consumed it upon their return home from fishing in the Bay of Naples.",
+    "prices": {
+      "USD": 1.97,
+      "EUR": 2.54
+    },
+    "image": "",
+    "active": true
+  },
+  "666": {
+    "id": 666,
+    "name": "Calzone",
+    "type": "product",
+    "description": "This unique type of pizza is characterized by its half-round shape, made by folding a full-sized pizza in half. Hailing from 18th century Naples, calzone literally means pant leg, referring to the fact that calzone's original purpose was to be a pizza which can be consumed while walking or standing.",
+    "prices": {
+      "USD": 2.65,
+      "EUR": 3.07
+    },
+    "image": "",
+    "active": true
+  },
+  "777": {
+    "id": 777,
+    "name": "Manakish",
+    "type": "product",
+    "description": "Manakish is a favorite Lebanese breakfast - a round, flat bread that is typically topped with olive oil and zaatar (sesame seeds, thyme, and sumac), then baked in the oven. Other toppings might include cheese, minced lamb, spinach, or fried eggplants.",
+    "prices": {
+      "USD": 4.87,
+      "EUR": 5.56
+    },
+    "image": "",
+    "active": true
+  },
+  "888": {
+    "id": 888,
+    "name": "Tirolese",
+    "type": "product",
+    "description": "Tirolese or speck pizza consists of tomato sauce, mozzarella, and thin slices of cured Tiroler speck. Although it is typical for South Tyrol, this pizza is eaten throughout the country. Tirolese can sometimes be enriched with the addition of mushrooms.",
+    "prices": {
+      "USD": 2.83,
+      "EUR": 3.47
+    },
+    "image": "",
+    "active": true
+  },
+  "134334": {
+    "id": 134334,
+    "name": "Delivery fee",
+    "type": "service",
+    "description": "",
+    "prices": {
+      "USD": 2,
+      "EUR": 3
+    },
+    "image": "",
+    "active": false
+  }
+}

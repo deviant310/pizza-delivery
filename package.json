@@ -1,0 +1,44 @@
+{
+  "scripts": {
+    "update": "ncu -u -n \"/^@jfxteam.*$/\" && npm update",
+    "build:test": "npm run update && \"node_modules/.bin/webpack\" --env.mode=development --env.test -w",
+    "build:dev": "npm run update && \"node_modules/.bin/webpack\" --env.mode=development -w",
+    "build:prod": "npm run update && \"node_modules/.bin/webpack\" --env.mode=production --silent",
+    "server:test": "npm run update && \"node_modules/.bin/webpack\" --env.server --env.mode=development --env.test -w",
+    "server:dev": "npm run update && \"node_modules/.bin/webpack\" --env.server --env.mode=development -w",
+    "server:prod": "npm run update && \"node_modules/.bin/webpack\" --env.server --env.mode=production"
+  },
+  "dependencies": {
+    "@jfxteam/font-awesome": "^1.0.0",
+    "@jfxteam/provider": "0.0.1-0",
+    "@jfxteam/react-form": "0.0.1-5",
+    "bootstrap": "^4.4.1",
+    "json-templater": "^1.2.0",
+    "local-storage": "^2.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "react-string-replace": "^0.4.4",
+    "redux": "^4.0.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.5.3",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "nodemon": "^2.0.3",
+    "npm-add-dependencies": "^0.3.1",
+    "npm-check-updates": "^4.1.2",
+    "style-loader": "^1.2.0",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.10",
+    "webpack-shell-plugin": "^0.5.0"
+  }
+}

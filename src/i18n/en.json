@@ -1,0 +1,14 @@
+{
+  "currenciesSymbols": {
+    "USD": "$",
+    "EUR": "€"
+  },
+  "deliveryFree": {
+    "text": "*For orders of {{sums}} and more delivery is free!",
+    "multipleSumsGlueText": "or"
+  },
+  "noCartItems": {
+    "text": "No products added. Choose something from the {{link}}.",
+    "linkText": "menu"
+  }
+}

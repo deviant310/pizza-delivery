@@ -1,0 +1,14 @@
+.popup {
+  pointer-events: none;
+}
+.popup--visible {
+  pointer-events: initial;
+}
+.popup__container {
+  opacity: 0;
+  transform: scale(0);
+}
+.popup--visible .popup__container {
+  opacity: 1;
+  transform: scale(1);
+}

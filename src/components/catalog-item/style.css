@@ -1,0 +1,22 @@
+.catalog-item {
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(51, 38, 39, 0.1);
+}
+.catalog-item__canvas {
+  background-color: rgba(51, 38, 39, 0.1);
+  height: 200px;
+}
+.catalog-item__img {
+  font-size: 5rem;
+  color: rgba(51, 39, 39, 0.5);
+}
+.catalog-item__description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  overflow: hidden;
+  font-size: .9rem;
+}
