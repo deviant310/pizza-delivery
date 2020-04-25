@@ -45,7 +45,12 @@ class CartPosition extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, props) => ({...state.positions[props.id], ...{currency: state.currency}});
+const mapStateToProps = (state, props) => ({
+  ...state.positions[props.id], 
+  ...{
+    currency: state.currency ? state.currencies[state.currency].code : '',
+  }
+});
 
 const mapDispatchToProps = dispatch => ({
   async initCart(){

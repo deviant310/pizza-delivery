@@ -3,14 +3,12 @@ const Router = require('react-router-dom');
 
 let {withRouter, Link} = Router;
 
-let img = require('img/logo.svg');
-
 require('./style.css');
 
 class Logo extends React.Component {
   render(){
     let logoImg = (
-      <div className="logo__img" style={{backgroundImage: `url(${img.default})`}}></div>  
+      <div className="logo__img"></div>  
     );
     
     return (

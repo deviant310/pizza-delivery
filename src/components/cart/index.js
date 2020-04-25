@@ -6,12 +6,11 @@ const ReactStringReplace = require('react-string-replace');
 
 const PopUp = require('components/popup');
 const CartPosition = require('components/cart-position');
+const CheckoutForm = require('components/checkout-form');
 
 const CartActions = require('actions/cart.js');
 
 const Lang = require('i18n/en.json');
-
-const Config = require('config');
 
 require('./style.css');
 
@@ -38,10 +37,10 @@ class Cart extends React.PureComponent {
   }
   
   render(){
-    let {className, visible, positionsCount, positions, currency, subtotal, total} = this.props,
+    let {className, visible, checkoutIsVisible, positionsCount, positions, currency, currencies, subtotal, total} = this.props,
       {currenciesSymbols, deliveryFree, noCartItems} = Lang,
-      currencySymbol = currenciesSymbols[currency];
-      
+      currencySymbol = currency ? currenciesSymbols[currencies[currency].code] : '';
+
     return (
       <div className={['cart', visible ? 'cart--visible' : '', className].filter(v => v).join(' ')}>
         <div className="cart__toggle d-flex align-items-start" onClick={e => {e.stopPropagation(); this.popupToggle();}}>
@@ -52,15 +51,15 @@ class Cart extends React.PureComponent {
         </div>
         <PopUp className="cart__popup" fixed={true} ref={this.popup}>
           <div className="cart__container p-4">
-            <div className="px-3">
+            <div className="px-3 py-1 overflow-hidden">
               <div className="d-flex mx-n5 justify-content-between align-items-center mb-4 flex-nowrap">
                 <div className="px-5">
                   <h4 className="text-nowrap m-0">Your order</h4>
                 </div>
                 <div className="px-5">
-                  <select className="cart__currency form-control" value={this.props.currency} onChange={e => this.props.setCurrency(e.target.value)}>
-                    {Object.values(Config.currencies).map((code, index) => (
-                      <option key={index} value={code}>{code} {currenciesSymbols[code]}</option>
+                  <select className="cart__currency form-control" value={this.props.currency} onChange={e => this.props.setCurrency(+e.target.value)}>
+                    {Object.entries(currencies).map(([id, {code}]) => (
+                      <option key={id} value={id}>{code} {currenciesSymbols[code]}</option>
                     ))}
                   </select>
                 </div>
@@ -100,11 +99,20 @@ class Cart extends React.PureComponent {
               </div>
               <small>
               {ParseJSONTemplate(deliveryFree.text, {
-                sums: Object.values(Config.currencies)
-                  .map(code => `${currenciesSymbols[code]}${Config.freeDeliveryMinPrices[code]}`)
+                sums: Object.entries(currencies)
+                  .map(([id, {code, deliveryMinPrice}]) => `${currenciesSymbols[code]}${deliveryMinPrice}`)
                   .join(` ${deliveryFree.multipleSumsGlueText} `)
               })}
               </small>
+              {checkoutIsVisible ? (
+                <div className="mt-5 mb-4">
+                  <CheckoutForm title="Checkout" submitText="Checkout"/>
+                </div>
+              ) : positionsCount > 0 && (
+                <div className="d-flex justify-content-center mt-4 mb-3">
+                  <button className="btn btn-primary" onClick={e => {e.stopPropagation(); this.props.showCheckout()}}>Checkout</button>
+                </div>
+              )}
             </div>
           </div>
         </PopUp>
@@ -120,9 +128,12 @@ const mapDispatchToProps = dispatch => ({
     let cart = await CartActions.init();
     dispatch({type: 'INIT_CART', data: cart});
   },
-  setCurrency(code){
-    CartActions.setCurrency(code);
+  setCurrency(id){
+    CartActions.setCurrency(id);
     this.initCart();
+  },
+  showCheckout(){
+    dispatch({type: 'SHOW_CHECKOUT'});
   }
 });
 

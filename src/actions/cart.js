@@ -1,40 +1,48 @@
-const Config = require('config');
-
 const API = {
   Cart: require('api/cart.js'),
-  Catalog: require('api/catalog.js')
+  Catalog: require('api/catalog.js'),
+  Config: require('api/config.js')
 }
 
 const Actions = {
   init: async () => {
-    let cart = API.Cart, goods, changedPositions, deliveryGoodId = 134334;
+    let cart = API.Cart, config, goods, deliveryGood, changedPositions;
     
+    config = await API.Config.get();
     goods = await API.Catalog.getList({
-      filters: Object.values(cart.positions).map(({id}) => ({id})).concat({id: deliveryGoodId})
+      filters: Object.values(cart.positions).map(({id}) => ({id})).concat({type: 'delivery'})
     });
+    deliveryGood = Object.values(goods).find(good => good.type === 'delivery');
+    
+    if(!cart.currency)
+      cart.setCurrency(Object.values(config.currencies)[0].id);
     
     if(Object.values(cart.positions).some(({currency}) => currency !== cart.currency)){
       changedPositions = Object.values(cart.positions)
-        .map(({id, price}) => ({id, price: price ? goods[id].prices[cart.currency] : price}));
+        .map(({id, price}) => ({
+          id, 
+          price: price ? goods[id].prices[config.currencies[cart.currency].code] : price
+        }));
       cart.setPositions(changedPositions, false);
     }
 
-    if(cart.positionsCount){
-      if(cart.subTotal < Config.freeDeliveryMinPrices[cart.currency]){
+    if(deliveryGood){
+      if(cart.positionsCount){
         cart.setPosition({
-          id: deliveryGoodId, 
-          price: goods[deliveryGoodId].prices[cart.currency],
+          id: deliveryGood.id, 
+          price: 0,
           quantity: 1, 
           editable: false
         }, false);
+        if(cart.subTotal < config.currencies[cart.currency].deliveryMinPrice){
+          cart.setPosition({
+            id: deliveryGood.id, 
+            price: deliveryGood.prices[config.currencies[cart.currency].code]
+          }, false);
+        }
       } else {
-        cart.setPosition({
-          id: deliveryGoodId, 
-          price: 0
-        }, false)
+        cart.deletePosition(deliveryGood.id);
       }
-    } else {
-      cart.deletePosition(deliveryGoodId);
     }
 
     return {
@@ -50,6 +58,7 @@ const Actions = {
         return obj;
       }, {}),
       currency: cart.currency,
+      currencies: config.currencies,
       subtotal: cart.subTotal,
       total: cart.total,
       positionsCount: cart.positionsCount
@@ -64,8 +73,8 @@ const Actions = {
   deletePosition(id){
     API.Cart.deletePosition(id);
   },
-  setCurrency(code){
-    API.Cart.setCurrency(code);
+  setCurrency(id){
+    API.Cart.setCurrency(id);
   }
 }
 

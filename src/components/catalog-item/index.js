@@ -45,8 +45,8 @@ class CatalogItem extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  currency: state.currency,
-  price: props.data.prices[state.currency]
+  currency: state.currency ? state.currencies[state.currency].code : '',
+  price: state.currency ? props.data.prices[state.currencies[state.currency].code] : ''
 });
 
 module.exports = connect(mapStateToProps)(CatalogItem);

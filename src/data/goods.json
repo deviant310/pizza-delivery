@@ -98,7 +98,7 @@
   "134334": {
     "id": 134334,
     "name": "Delivery fee",
-    "type": "service",
+    "type": "delivery",
     "description": "",
     "prices": {
       "USD": 2,

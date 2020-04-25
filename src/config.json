@@ -1,7 +1,0 @@
-{
-  "currencies": ["USD", "EUR"],
-  "freeDeliveryMinPrices": {
-    "USD": 10,
-    "EUR": 15
-  }
-}

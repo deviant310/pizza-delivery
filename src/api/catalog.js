@@ -1,15 +1,42 @@
 const Provider = require('@jfxteam/provider');
 
-require('data/products.json');
-
 class Catalog {
   static provider = new Provider;
     
-  static getList(){
-    return this.provider.get({
-      url: '/data/products.json',
-      responseHandler: r => r.json()
-    })
+  static async getList({filters}){
+    filters = filters || {};
+
+    let request = await this.provider.get({
+        url: '/api/?com=catalog&act=get.list',
+        type: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify({filters}),
+        responseHandler: r => r.json()
+      }),
+      goods = request.response;
+      
+    return Object.values(goods)
+    .reduce((obj, good) => {
+      obj[good.id] = {
+        id: good.id,
+        name: good.name,
+        description: good.description,
+        prices: good.prices,
+        type: good.type,
+        image: good.image,
+        active: good.active,
+      }
+      return obj;
+    }, {});
+  }
+  
+  static async getGood(filter){
+    let list = await this.getList({
+      filters: [filter]
+    });
+    return Object.values(list)[0];
   }
 }
 
