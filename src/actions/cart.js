@@ -1,16 +1,21 @@
+const QueryString = require('querystring');
+const QS = require('qs');
+
 const API = {
   Cart: require('api/cart.js'),
+  Order: require('api/order.js'),
   Catalog: require('api/catalog.js'),
   Config: require('api/config.js')
 }
 
 const Actions = {
-  init: async () => {
+  async init(){
     let cart = API.Cart, config, goods, deliveryGood, changedPositions;
     
     config = await API.Config.get();
     goods = await API.Catalog.getList({
-      filters: Object.values(cart.positions).map(({id}) => ({id})).concat({type: 'delivery'})
+      filters: Object.values(cart.positions).map(({id}) => ({id})).concat({type: 'delivery'}),
+      select: ['id', 'name', 'type']
     });
     deliveryGood = Object.values(goods).find(good => good.type === 'delivery');
     
@@ -75,6 +80,16 @@ const Actions = {
   },
   setCurrency(id){
     API.Cart.setCurrency(id);
+  },
+  prepareCheckoutData(data){
+    
+  },
+  async checkout(data){
+    data = QS.parse(QueryString.encode(data));
+    data.order.positions = API.Cart.positions;
+    data.order.currency_id = API.Cart.currency;
+    
+    return await API.Order.create(data);
   }
 }
 

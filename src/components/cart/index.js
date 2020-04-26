@@ -105,9 +105,7 @@ class Cart extends React.PureComponent {
               })}
               </small>
               {checkoutIsVisible ? (
-                <div className="mt-5 mb-4">
-                  <CheckoutForm title="Checkout" submitText="Checkout"/>
-                </div>
+                <div className="mt-5 mb-4">{this.renderCheckout()}</div>
               ) : positionsCount > 0 && (
                 <div className="d-flex justify-content-center mt-4 mb-3">
                   <button className="btn btn-primary" onClick={e => {e.stopPropagation(); this.props.showCheckout()}}>Checkout</button>
@@ -118,6 +116,31 @@ class Cart extends React.PureComponent {
         </PopUp>
       </div>
     );
+  }
+  
+  renderCheckout(){
+    switch(this.props.checkoutStatus){
+      case 'success': return (
+        <div className="alert alert-success" role="alert">
+          This is a success alert—check it out!
+        </div>
+      );
+      case 'error': return (
+        <div className="alert alert-danger" role="alert">
+          This is a danger alert—check it out!
+        </div>
+      );
+      default: return (
+        <CheckoutForm 
+          title="Checkout" 
+          submitText="Checkout" 
+          onSubmit={e => {
+            e.preventDefault(); 
+            this.props.checkoutSubmit(e.detail);
+          }}
+        />
+      );
+    }
   }
 }
 
@@ -134,6 +157,17 @@ const mapDispatchToProps = dispatch => ({
   },
   showCheckout(){
     dispatch({type: 'SHOW_CHECKOUT'});
+  },
+  async checkoutSubmit(data){
+    dispatch({type: 'PROCESS_CHECKOUT'});
+    
+    let order = await CartActions.checkout(data);
+    
+    if(order.order_id){
+      dispatch({type: 'SUCCESS_CHECKOUT'});
+    } else {
+      dispatch({type: 'ERROR_CHECKOUT'});
+    }
   }
 });
 

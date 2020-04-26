@@ -5,7 +5,7 @@ let {connect} = ReactRedux;
 
 class Main extends React.PureComponent {
   render(){
-    let {components, data, visible} = this.props,
+    let {components, data, visible, checkoutProcess} = this.props,
       {Form, Title, Fields, SubmitButton} = components;
     
     return (
@@ -16,7 +16,15 @@ class Main extends React.PureComponent {
         </div>
         <div className="d-flex justify-content-between align-items-center">
           <SubmitButton className="btn btn-primary"/>
-          <button className="btn btn-secondary" onClick={e => {e.stopPropagation(); this.props.hide()}}>Hide</button>
+          <button 
+            className="btn btn-secondary"
+            disabled={checkoutProcess}
+            onClick={e => {
+              e.stopPropagation(); 
+              this.props.hide();
+            }}>
+            <span>Hide</span>
+          </button>
         </div>
       </Form>
     );
@@ -24,7 +32,8 @@ class Main extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  visible: state.checkoutIsVisible
+  visible: state.checkoutIsVisible,
+  checkoutProcess: state.checkoutProcess
 })
 
 const mapDispatchToProps = dispatch => ({

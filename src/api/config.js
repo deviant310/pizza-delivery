@@ -1,12 +1,17 @@
-class Config {    
-  static async get(order){   
-    let request = await fetch('/api/?com=config&act=get', {
-        method: 'POST',
+const Provider = require('@jfxteam/provider');
+
+class Config {
+  static provider = new Provider;
+  
+  static async get(order){
+    let request = await this.provider.get({
+        url: '/api/?com=config&act=get',
+        type: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
-      })
-      .then(r => r.json()),
+        },
+        responseHandler: r => r.json()
+      }),
       response;
       
     response = request.response;

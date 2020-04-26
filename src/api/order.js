@@ -1,11 +1,11 @@
 class Order {    
-  static async create(order){   
+  static async create(data){
     let request = await fetch('/api/?com=order&act=create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(order)
+      body: JSON.stringify(data)
     })
     .then(r => r.json())
       

@@ -3,24 +3,11 @@ const ReactForm = require('@jfxteam/react-form');
 
 const Components = require.context('./components', false, /\.js$/);
 
-const API = {
-  Cart: require('api/cart.js'),
-  Order: require('api/order.js')
-}
-
 class CheckoutForm extends React.PureComponent {
   constructor(props){
     super(props);
     
     this.ref = React.createRef();
-  }
-  
-  async submit(data){
-    data['order[positions]'] = API.Cart.positions;
-    
-    let order = await API.Order.create(data);
-    
-    debugger;
   }
   
   render(){
@@ -36,6 +23,9 @@ class CheckoutForm extends React.PureComponent {
           } : {},
           ...this.props.submitText ? {
             submitText: this.props.submitText,
+          } : {},
+          ...this.props.onSubmit ? {
+            onSubmit: this.props.onSubmit
           } : {},
           ...{
             type: 'div',
@@ -67,7 +57,7 @@ class CheckoutForm extends React.PureComponent {
               address: {
                 label: 'Address',
                 input: {
-                  name: 'client[address]',
+                  name: 'order[address]',
                   type: 'text',
                   required: true
                 }
@@ -80,10 +70,6 @@ class CheckoutForm extends React.PureComponent {
                   required: true
                 }
               }
-            },
-            onSubmit: e => {
-              e.preventDefault();
-              this.submit(e.detail);
             }
           },
         }}

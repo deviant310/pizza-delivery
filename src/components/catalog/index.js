@@ -19,7 +19,7 @@ class Catalog extends React.Component {
   
   async componentDidMount(){
     let goods = await API.Catalog.getList({
-      filters: [{active : true}]
+      filters: [{type : 'product'}]
     });
     
     this.setState({...this.state, ...{

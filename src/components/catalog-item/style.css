@@ -12,6 +12,9 @@
 .catalog-item__img {
   font-size: 5rem;
   color: rgba(51, 39, 39, 0.5);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .catalog-item__description {
   display: -webkit-box;

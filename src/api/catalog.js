@@ -3,7 +3,7 @@ const Provider = require('@jfxteam/provider');
 class Catalog {
   static provider = new Provider;
     
-  static async getList({filters}){
+  static async getList({filters, select}){
     filters = filters || {};
 
     let request = await this.provider.get({
@@ -12,7 +12,7 @@ class Catalog {
         headers: {
           'Content-Type': 'application/json'
         },
-        data: JSON.stringify({filters}),
+        data: JSON.stringify({filters, select}),
         responseHandler: r => r.json()
       }),
       goods = request.response;

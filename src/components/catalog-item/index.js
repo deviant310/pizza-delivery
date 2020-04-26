@@ -18,7 +18,7 @@ class CatalogItem extends React.Component {
     return (
       <div className="catalog-item d-flex flex-column w-100">
         <div className="catalog-item__canvas d-flex justify-content-center align-items-center">
-          <div className={['catalog-item__img', !image ? 'fad fa-pizza-slice' : ''].filter(v => v). join(' ')} style={{backgroundImage: image ? `url(${image})` : ''}}>
+          <div className={['catalog-item__img d-flex justify-content-center align-items-center w-100 h-100', !image ? 'fad fa-pizza-slice' : ''].filter(v => v). join(' ')} style={{backgroundImage: image ? `url(data:image/jpeg;base64,${image})` : ''}}>
           </div>
         </div>
         <div className="catalog-item__content p-4 text-center d-flex flex-grow-1">
