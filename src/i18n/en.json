@@ -10,5 +10,7 @@
   "noCartItems": {
     "text": "No products added. Choose something from the {{link}}.",
     "linkText": "menu"
-  }
+  },
+  "checkoutSuccess": "Thank you for your order!",
+  "checkoutError": "Something went wrong..."
 }

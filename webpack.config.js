@@ -4,10 +4,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const exec = require('child_process').exec;
 
+//require('babel-polyfill');
+
 module.exports = ({mode, test, server, 'output-path': outputPath}) => {
   let outputAbsPath = path.resolve(__dirname, outputPath || 'dist');
   
   return {
+    entry: ['@babel/polyfill', './src/index.js'],
     mode: mode || 'development',
     output: {
       path: outputAbsPath,
@@ -22,7 +25,7 @@ module.exports = ({mode, test, server, 'output-path': outputPath}) => {
         data: path.resolve(__dirname, 'src/data'),
         pages: path.resolve(__dirname, 'src/pages'),
         reducers: path.resolve(__dirname, 'src/reducers'),
-        img: path.resolve(__dirname, 'src/img'),
+        images: path.resolve(__dirname, 'src/images'),
         i18n: path.resolve(__dirname, 'src/i18n'),
       }
     },
@@ -36,11 +39,13 @@ module.exports = ({mode, test, server, 'output-path': outputPath}) => {
               loader: 'babel-loader',
               options: {
                 presets: [
-                  mode === 'production' ? '@babel/preset-env' : '', 
-                  '@babel/preset-react'
+                  mode === 'production' ? ["@babel/preset-env", {"useBuiltIns": "entry"}] : '',
+                  mode === 'production' ? "minify" : '',
+                  "@babel/preset-react",
                 ].filter(v => v),
                 "plugins": [
-                  "@babel/plugin-proposal-class-properties"
+                  "@babel/plugin-proposal-class-properties",
+                  "@babel/plugin-proposal-export-default-from"
                 ]
               }
             }
@@ -73,7 +78,8 @@ module.exports = ({mode, test, server, 'output-path': outputPath}) => {
             {
               loader: 'file-loader',
               options: {
-                name: 'img/[name].[ext]',
+                name: 'img/[path][name].[ext]',
+                context: 'src'
               },
             },
           ],

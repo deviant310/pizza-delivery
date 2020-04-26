@@ -5,10 +5,12 @@ let {withRouter, Link} = Router;
 
 require('./style.css');
 
+let logoPath = require('images/logo.svg');
+
 class Logo extends React.Component {
   render(){
     let logoImg = (
-      <div className="logo__img"></div>  
+      <div className="logo__img" style={{backgroundImage: `url(${logoPath.default})`}}></div>  
     );
     
     return (

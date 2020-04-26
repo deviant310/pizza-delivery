@@ -11,7 +11,7 @@
   "dependencies": {
     "@jfxteam/font-awesome": "^1.0.0",
     "@jfxteam/provider": "0.0.1-1",
-    "@jfxteam/react-form": "0.0.1-15",
+    "@jfxteam/react-form": "0.0.1-16",
     "bootstrap": "^4.4.1",
     "json-templater": "^1.2.0",
     "local-storage": "^2.0.0",
@@ -26,9 +26,12 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",
+    "babel-preset-minify": "^0.5.1",
     "css-loader": "^3.5.3",
     "dotenv": "^8.2.0",
     "file-loader": "^6.0.0",

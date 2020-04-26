@@ -37,7 +37,7 @@ class Cart extends React.PureComponent {
   }
   
   render(){
-    let {className, visible, checkoutIsVisible, positionsCount, positions, currency, currencies, subtotal, total} = this.props,
+    let {className, visible, checkoutIsVisible, positionsCount, positions, currency, currencies, subTotal, total} = this.props,
       {currenciesSymbols, deliveryFree, noCartItems} = Lang,
       currencySymbol = currency ? currenciesSymbols[currencies[currency].code] : '';
 
@@ -76,7 +76,7 @@ class Cart extends React.PureComponent {
                   <hr/>
                   <div className="d-flex justify-content-between">
                     <span>Subtotal:</span>
-                    <span>{currencySymbol}{subtotal}</span>
+                    <span>{currencySymbol}{subTotal}</span>
                   </div>
                   <div className="cart__positions mx-n3">
                     <div className="d-table w-100">
@@ -104,13 +104,7 @@ class Cart extends React.PureComponent {
                   .join(` ${deliveryFree.multipleSumsGlueText} `)
               })}
               </small>
-              {checkoutIsVisible ? (
-                <div className="mt-5 mb-4">{this.renderCheckout()}</div>
-              ) : positionsCount > 0 && (
-                <div className="d-flex justify-content-center mt-4 mb-3">
-                  <button className="btn btn-primary" onClick={e => {e.stopPropagation(); this.props.showCheckout()}}>Checkout</button>
-                </div>
-              )}
+              {this.renderCheckout()}
             </div>
           </div>
         </PopUp>
@@ -119,26 +113,42 @@ class Cart extends React.PureComponent {
   }
   
   renderCheckout(){
-    switch(this.props.checkoutStatus){
+    let {checkoutSuccess, checkoutError} = Lang,
+      {checkoutForm, positionsCount} = this.props;
+    
+    switch(checkoutForm){
       case 'success': return (
-        <div className="alert alert-success" role="alert">
-          This is a success alert—check it out!
+        <div className="mt-5 mb-4">
+          <div className="alert alert-success" role="alert">{checkoutSuccess}</div>
         </div>
       );
       case 'error': return (
-        <div className="alert alert-danger" role="alert">
-          This is a danger alert—check it out!
+        <div className="mt-5 mb-4">
+          <div className="alert alert-danger" role="alert">{checkoutError}</div>
+          <div className="d-flex justify-content-center mt-4 mb-3">
+            <button className="btn btn-primary" onClick={e => {e.stopPropagation(); this.props.showCheckout()}}>Try again</button>
+          </div>
         </div>
       );
-      default: return (
-        <CheckoutForm 
-          title="Checkout" 
-          submitText="Checkout" 
-          onSubmit={e => {
-            e.preventDefault(); 
-            this.props.checkoutSubmit(e.detail);
-          }}
-        />
+      case 'visible': return (
+        <div className="mt-5 mb-4">
+          <CheckoutForm 
+            title="Checkout" 
+            submitText="Checkout" 
+            onSubmit={(event, originalEvent) => {
+              originalEvent.stopPropagation();
+              event.preventDefault(); 
+              this.props.checkoutSubmit(event.detail);
+            }}
+          />
+        </div>
+      );
+      case 'hidden': return (positionsCount > 0 &&
+        <div className="mt-5 mb-4">
+          <div className="d-flex justify-content-center mt-4 mb-3">
+            <button className="btn btn-primary" onClick={e => {e.stopPropagation(); this.props.showCheckout()}}>Checkout</button>
+          </div>
+        </div>
       );
     }
   }
@@ -148,7 +158,7 @@ const mapStateToProps = state => state;
 
 const mapDispatchToProps = dispatch => ({
   async initCart(){
-    let cart = await CartActions.init();
+    let cart = await CartActions.getState();
     dispatch({type: 'INIT_CART', data: cart});
   },
   setCurrency(id){
@@ -159,14 +169,25 @@ const mapDispatchToProps = dispatch => ({
     dispatch({type: 'SHOW_CHECKOUT'});
   },
   async checkoutSubmit(data){
-    dispatch({type: 'PROCESS_CHECKOUT'});
+    dispatch({type: 'INIT_CART', data: {
+      checkoutProcess: true,
+    }});
     
     let order = await CartActions.checkout(data);
     
     if(order.order_id){
-      dispatch({type: 'SUCCESS_CHECKOUT'});
+      CartActions.clear();
+      let cart = CartActions.getData();
+      
+      dispatch({type: 'INIT_CART', data: {...cart, ...{
+        checkoutProcess: false,
+        checkoutForm: 'success',
+      }}});
     } else {
-      dispatch({type: 'ERROR_CHECKOUT'});
+      dispatch({type: 'INIT_CART', data: {
+        checkoutProcess: false,
+        checkoutForm: 'error',
+      }});
     }
   }
 });

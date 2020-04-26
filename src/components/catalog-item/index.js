@@ -14,11 +14,12 @@ class CatalogItem extends React.Component {
     let {id, name, description, image} = this.props.data,
       price = this.props.price,
       currency = Lang.currenciesSymbols[this.props.currency];
-
+    
+    let imagePath = image ? require(`images/products/${image}`) : '';
     return (
       <div className="catalog-item d-flex flex-column w-100">
         <div className="catalog-item__canvas d-flex justify-content-center align-items-center">
-          <div className={['catalog-item__img d-flex justify-content-center align-items-center w-100 h-100', !image ? 'fad fa-pizza-slice' : ''].filter(v => v). join(' ')} style={{backgroundImage: image ? `url(data:image/jpeg;base64,${image})` : ''}}>
+          <div className={['catalog-item__img d-flex justify-content-center align-items-center w-100 h-100', !imagePath ? 'fad fa-pizza-slice' : ''].filter(v => v). join(' ')} style={{backgroundImage: imagePath ? `url(${imagePath.default})` : ''}}>
           </div>
         </div>
         <div className="catalog-item__content p-4 text-center d-flex flex-grow-1">

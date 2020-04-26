@@ -9,7 +9,7 @@ const API = {
 }
 
 const Actions = {
-  async init(){
+  async getState(){
     let cart = API.Cart, config, goods, deliveryGood, changedPositions;
     
     config = await API.Config.get();
@@ -64,10 +64,21 @@ const Actions = {
       }, {}),
       currency: cart.currency,
       currencies: config.currencies,
-      subtotal: cart.subTotal,
+      subTotal: cart.subTotal,
       total: cart.total,
       positionsCount: cart.positionsCount
     };
+  },
+  getData(){
+    let cart = API.Cart;
+    
+    return {
+      positions: cart.positions,
+      currency: cart.currency,
+      subTotal: cart.subTotal,
+      total: cart.total,
+      positionsCount: cart.positionsCount
+    }; 
   },
   setPositionQuantity(id, quantity){
     API.Cart.setPosition({id, quantity});
@@ -81,8 +92,8 @@ const Actions = {
   setCurrency(id){
     API.Cart.setCurrency(id);
   },
-  prepareCheckoutData(data){
-    
+  clear(){
+    API.Cart.clear();
   },
   async checkout(data){
     data = QS.parse(QueryString.encode(data));

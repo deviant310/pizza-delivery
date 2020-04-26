@@ -15,10 +15,9 @@ class Main extends React.PureComponent {
           <Fields/>
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <SubmitButton className="btn btn-primary"/>
+          <SubmitButton className="btn btn-primary" disabled={checkoutProcess}/>
           <button 
             className="btn btn-secondary"
-            disabled={checkoutProcess}
             onClick={e => {
               e.stopPropagation(); 
               this.props.hide();

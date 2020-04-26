@@ -2,30 +2,15 @@ module.exports = (state, action) => {
   switch(action.type){
     case 'INIT_CART':
       return {...state, ...action.data, ...{
-        checkoutStatus: false,
-        checkoutIsVisible: state.checkoutIsVisible && !action.data.positionsCount ? false : state.checkoutIsVisible
+        checkoutForm: state.checkoutForm === 'success' || state.checkoutForm === 'error' || (state.checkoutForm === 'visible' && !action.data.checkoutForm && !action.data.positionsCount) ? 'hidden' : action.data.checkoutForm || state.checkoutForm
       }};
     case 'SHOW_CHECKOUT':
       return {...state, ...{
-        checkoutIsVisible: true
+        checkoutForm: 'visible'
       }};
     case 'HIDE_CHECKOUT':
       return {...state, ...{
-        checkoutIsVisible: false
-      }};
-    case 'PROCESS_CHECKOUT':
-      return {...state, ...{
-        checkoutProcess: true,
-      }};
-    case 'SUCCESS_CHECKOUT':
-      return {...state, ...{
-        checkoutStatus: 'success',
-        checkoutProcess: false,
-      }};
-    case 'ERROR_CHECKOUT':
-      return {...state, ...{
-        checkoutStatus: 'error',
-        checkoutProcess: false,
+        checkoutForm: 'hidden'
       }};
     default:
       return {
@@ -34,10 +19,10 @@ module.exports = (state, action) => {
         currencies: {},
         deliveryMinPrices: {},
         total: 0,
+        subTotal: 0,
         positionsCount: 0,
         visible: false,
-        checkoutIsVisible: false,
-        checkoutStatus: false,
+        checkoutForm: 'hidden',
         checkoutProcess: false,
       }
   }

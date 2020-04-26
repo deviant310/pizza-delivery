@@ -71,10 +71,10 @@ class Cart {
           editable: finalEditable,
         }};
         cartStorage.positions[id] = position;
-        ret = ret.concat({inCart: true, position});
+        ret = ret.concat({inCart: true, data: position});
       } else {
         delete cartStorage.positions[id];
-        ret = ret.concat({inCart: false, deletedId: id});
+        ret = ret.concat({inCart: false, data: {id}});
       }
     })
     
@@ -98,7 +98,13 @@ class Cart {
       LS('__cart', cartStorage);
     }
     
-    return {id};
+    return {inCart: false, data: {id}};
+  }
+  
+  static clear(){
+    let cartStorage = LS('__cart');
+    cartStorage.positions = {};
+    LS('__cart', cartStorage);
   }
   
   static setCurrency(code){
