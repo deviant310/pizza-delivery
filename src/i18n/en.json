@@ -1,4 +1,7 @@
 {
+  "mainTitle": "Pizza Delivery",
+  "homePageTitle": "Home",
+  "menuPageTitle": "Menu",
   "currenciesSymbols": {
     "USD": "$",
     "EUR": "€"

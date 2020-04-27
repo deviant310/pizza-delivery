@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const exec = require('child_process').exec;
 
-//require('babel-polyfill');
+const Lang = require('./src/i18n/en.json');
 
 module.exports = ({mode, test, server, 'output-path': outputPath}) => {
   let outputAbsPath = path.resolve(__dirname, outputPath || 'dist');
@@ -99,7 +99,8 @@ module.exports = ({mode, test, server, 'output-path': outputPath}) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './src/index.ejs'
+        template: './src/index.ejs',
+        title: Lang.mainTitle,
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css'
