@@ -11,7 +11,7 @@
   "dependencies": {
     "@jfxteam/font-awesome": "^1.0.0",
     "@jfxteam/provider": "0.0.1-1",
-    "@jfxteam/react-form": "0.0.1-16",
+    "@jfxteam/react-form": "^1.0.1",
     "bootstrap": "^4.4.1",
     "json-templater": "^1.2.0",
     "local-storage": "^2.0.0",
