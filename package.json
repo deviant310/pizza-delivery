@@ -1,12 +1,12 @@
 {
   "scripts": {
     "update": "ncu -u -t \"/^@jfxteam.*$/\" && npm update",
-    "build:test": "npm run update && \"node_modules/.bin/webpack\" --env.mode=development --env.test -w",
-    "build:dev": "npm run update && \"node_modules/.bin/webpack\" --env.mode=development -w",
-    "build:prod": "npm run update && \"node_modules/.bin/webpack\" --env.mode=production --silent",
-    "server:test": "npm run update && \"node_modules/.bin/webpack\" --env.server --env.mode=development --env.test -w",
-    "server:dev": "npm run update && \"node_modules/.bin/webpack\" --env.server --env.mode=development -w",
-    "server:prod": "npm run update && \"node_modules/.bin/webpack\" --env.server --env.mode=production"
+    "build:test": "\"node_modules/.bin/webpack\" --env.mode=development --env.test -w",
+    "build:dev": "\"node_modules/.bin/webpack\" --env.mode=development -w",
+    "build:prod": "\"node_modules/.bin/webpack\" --env.mode=production --silent",
+    "server:test": "\"node_modules/.bin/webpack\" --env.server --env.mode=development --env.test -w",
+    "server:dev": "\"node_modules/.bin/webpack\" --env.server --env.mode=development -w",
+    "server:prod": "\"node_modules/.bin/webpack\" --env.server --env.mode=production"
   },
   "dependencies": {
     "@jfxteam/font-awesome": "^1.0.0",
