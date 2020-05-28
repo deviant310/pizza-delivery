@@ -13,6 +13,7 @@
     "@jfxteam/provider": "0.0.1-1",
     "@jfxteam/react-form": "^1.0.1",
     "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
     "json-templater": "^1.2.0",
     "local-storage": "^2.0.0",
     "qs": "^6.9.3",
