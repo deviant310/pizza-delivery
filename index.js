@@ -3,15 +3,11 @@ const Path = require('path');
 
 const App = Express();
 
-const UseDir = process.env.USE_DIR;
+const UseDir = './dist';
 
-if(UseDir){
-  App.use(Express.static(UseDir));
-  App.use('/', (request, response) => {
-    response.sendFile(Path.resolve(UseDir, 'index.html'));
-  });
+App.use(Express.static(UseDir));
+App.use('/', (request, response) => {
+  response.sendFile(Path.resolve(UseDir, 'index.html'));
+});
 
-  App.listen(8000);
-} else {
-  throw new Error('Set USE_DIR as custom environment variable!')
-}
+App.listen(8000);
