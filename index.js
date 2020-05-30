@@ -1,18 +1,17 @@
-const express = require('express');
-const path = require('path');
-const Minimist = require('minimist')
+const Express = require('express');
+const Path = require('path');
 
-const app = express();
+const App = express();
 
-const env = Minimist(process.argv.slice(2));
+const UseDir = process.env.USE_DIR;
 
-if(env['use-dir']){
-  app.use(express.static(env['use-dir']));
-  app.use('/', (request, response) => {
-    response.sendFile(path.resolve(env['use-dir'], 'index.html'));
+if(UseDir){
+  App.use(Express.static(UseDir));
+  App.use('/', (request, response) => {
+    response.sendFile(Path.resolve(UseDir, 'index.html'));
   });
 
-  app.listen(8000);
+  App.listen(8000);
 } else {
-  throw new Error('--use-dir is not defined!')
+  throw new Error('Set USE_DIR as custom environment variable!')
 }
