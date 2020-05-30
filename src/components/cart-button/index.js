@@ -11,9 +11,9 @@ class CartButton extends React.PureComponent {
   render(){
     return (
       <button className={['cart-button', this.props.className].filter(v => v).join(' ')} onClick={e => {e.stopPropagation(); this.props.addToCart(this.props.data);}}>{this.props.inCartQuantity ? (
-        <span className="row mx-n1">
-          <span className="col px-1 text-nowrap">One more</span>
-          <span className="col px-1">
+        <span className="d-flex mx-n1">
+          <span className="px-1 text-nowrap">One more</span>
+          <span className="px-1">
             <span className="badge badge-light">{this.props.inCartQuantity}</span>
           </span>
         </span> 
