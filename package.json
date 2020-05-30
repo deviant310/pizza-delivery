@@ -1,13 +1,13 @@
 {
   "scripts": {
     "update": "ncu -u -t \"/^@jfxteam.*$/\" && npm update",
-    "build": "\"node_modules/.bin/webpack\"",
-    "start": "\"node_modules/.bin/webpack\" --env.server"
+    "build": "node_modules/.bin/webpack",
+    "start": "node_modules/.bin/webpack --env.server"
   },
   "dependencies": {
     "@jfxteam/font-awesome": "^1.0.0",
     "@jfxteam/provider": "0.0.1-1",
-    "@jfxteam/react-form": "^1.0.1",
+    "@jfxteam/react-form": "^1.0.2",
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "json-templater": "^1.2.0",

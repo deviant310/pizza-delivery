@@ -6,8 +6,9 @@ const exec = require('child_process').exec;
 
 const Lang = require('./src/i18n/en.json');
 
-module.exports = ({mode, test, server, 'output-path': outputPath}) => {
-  let outputAbsPath = path.resolve(__dirname, outputPath || 'dist');
+module.exports = (env = {}) => {
+  let {mode, test, server, 'output-path': outputPath} = env,
+    outputAbsPath = path.resolve(__dirname, outputPath || 'dist');
   
   return {
     entry: ['@babel/polyfill', './src/index.js'],

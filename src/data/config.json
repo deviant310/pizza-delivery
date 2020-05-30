@@ -1,0 +1,14 @@
+{
+  "currencies":{
+    "1":{
+      "id":1,
+      "name":"USD",
+      "delivery_min_price":12
+    },
+    "2":{
+      "id":2,
+      "name":"EUR",
+      "delivery_min_price":10
+    }
+  }
+}
