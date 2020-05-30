@@ -6,7 +6,7 @@ class Config {
   static provider = new Provider;
   
   static async get(order){
-    let config = await this.provider.get({url: '/data/config.js', responseHandler: r => r.json()});
+    let config = await this.provider.get({url: '/data/config.json', responseHandler: r => r.json()});
 
     return {
       currencies: Object.values(config.currencies).reduce((obj, currency) => {
