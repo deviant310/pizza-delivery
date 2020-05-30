@@ -1,12 +1,8 @@
 {
   "scripts": {
     "update": "ncu -u -t \"/^@jfxteam.*$/\" && npm update",
-    "build:test": "\"node_modules/.bin/webpack\" --env.mode=development --env.test -w",
-    "build:dev": "\"node_modules/.bin/webpack\" --env.mode=development -w",
-    "build:prod": "\"node_modules/.bin/webpack\" --env.mode=production --silent",
-    "server:test": "\"node_modules/.bin/webpack\" --env.server --env.mode=development --env.test -w",
-    "server:dev": "\"node_modules/.bin/webpack\" --env.server --env.mode=development -w",
-    "server:prod": "\"node_modules/.bin/webpack\" --env.server --env.mode=production"
+    "build": "\"node_modules/.bin/webpack\"",
+    "start": "\"node_modules/.bin/webpack\" --env.server"
   },
   "dependencies": {
     "@jfxteam/font-awesome": "^1.0.0",
