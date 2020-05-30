@@ -1,7 +1,7 @@
 const Express = require('express');
 const Path = require('path');
 
-const App = express();
+const App = Express();
 
 const UseDir = process.env.USE_DIR;
 
