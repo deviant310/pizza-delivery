@@ -37,7 +37,7 @@ class Cart extends React.PureComponent {
   }
   
   render(){
-    let {className, visible, checkoutIsVisible, positionsCount, positions, currency, currencies, subTotal, total} = this.props,
+    let {className, visible, positionsCount, positions, currency, currencies, subTotal, total} = this.props,
       {currenciesSymbols, deliveryFree, noCartItems} = Lang,
       currencySymbol = currency ? currenciesSymbols[currencies[currency].code] : '';
 
