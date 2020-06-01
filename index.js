@@ -12,7 +12,7 @@ if(env['use-dir']){
     response.sendFile(Path.resolve(env['use-dir'], 'index.html'));
   });
 
-  App.listen(8000);
+  App.listen(3000);
 } else {
   throw new Error('--use-dir is not defined!')
 }
