@@ -1,11 +1,11 @@
 const Express = require('express');
 const Path = require('path');
-const Minimist = require('minimist')
+const Minimist = require('minimist');
 
 const App = Express();
 
 const env = Minimist(process.argv.slice(2));
-
+env['use-dir'] = './dist';
 if(env['use-dir']){
   App.use(Express.static(env['use-dir']));
   App.use('/', (request, response) => {

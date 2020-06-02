@@ -2,7 +2,8 @@
   "scripts": {
     "update": "ncu -u -t \"/^@jfxteam.*$/\" && npm update",
     "build": "node_modules/.bin/webpack",
-    "start": "node_modules/.bin/webpack --env.server"
+    "start": "node_modules/.bin/nodemon --watch ./dist index.js --use-dir=./dist",
+    "dev": "node_modules/.bin/nodemon --watch ./dist --inspect index.js --use-dir=./dist"
   },
   "dependencies": {
     "@jfxteam/font-awesome": "^1.0.0",
@@ -18,7 +19,8 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-string-replace": "^0.4.4",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "ws": "^7.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

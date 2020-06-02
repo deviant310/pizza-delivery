@@ -1,18 +1,23 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const WebpackShellPlugin = require('webpack-shell-plugin');
-const exec = require('child_process').exec;
+//const WebpackShellPlugin = require('webpack-shell-plugin');
+//const exec = require('child_process').exec;
 
 const Lang = require('./src/i18n/en.json');
 
 module.exports = (env = {}) => {
-  let {mode, test, server, 'output-path': outputPath} = env,
+  let defaults = {
+      mode: 'development',
+      test: false,
+      outputPath: './dist'
+    },
+    {mode, test, outputPath} = {...defaults, ...env},
     outputAbsPath = path.resolve(__dirname, outputPath || 'dist');
   
   return {
     entry: ['@babel/polyfill', './src/index.js'],
-    mode: mode || 'development',
+    mode: mode,
     output: {
       path: outputAbsPath,
       publicPath: '/'
@@ -105,10 +110,7 @@ module.exports = (env = {}) => {
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css'
-      }),
-      server ? new WebpackShellPlugin({
-        onBuildEnd:[`nodemon --watch ${outputAbsPath} ${mode === 'development' ? '--inspect' : ''} index.js --use-dir=${outputAbsPath}`]
-      }) : null
-    ].filter(v => v)
+      })
+    ]
   }
 };
