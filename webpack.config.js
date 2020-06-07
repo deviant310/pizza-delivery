@@ -1,8 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-//const WebpackShellPlugin = require('webpack-shell-plugin');
-//const exec = require('child_process').exec;
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 const Lang = require('./src/i18n/en.json');
 
@@ -10,9 +9,11 @@ module.exports = (env = {}) => {
   let defaults = {
       mode: 'development',
       test: false,
+      server: false,
+      watch: false,
       outputPath: './dist'
     },
-    {mode, test, outputPath} = {...defaults, ...env},
+    {mode, test, server, watch, outputPath} = {...defaults, ...env},
     outputAbsPath = path.resolve(__dirname, outputPath || 'dist');
   
   return {
@@ -110,7 +111,10 @@ module.exports = (env = {}) => {
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css'
-      })
-    ]
+      }),
+      server ? new WebpackShellPlugin({
+        onBuildEnd:[`nodemon ${[watch ? `--watch ${outputAbsPath}` : '', mode === 'development' ? '--inspect' : ''].filter(v => v).join(' ')} . --use-dir=${outputAbsPath}`]
+      }) : null
+    ].filter(v => v)
   }
 };

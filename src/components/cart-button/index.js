@@ -33,6 +33,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = dispatch => ({
   async addToCart({id, price}){
+    debugger;
     CartActions.setPosition({id, price});
     let cart = await CartActions.getState();
     dispatch({type: 'INIT_CART', data: cart});

@@ -2,8 +2,7 @@
   "scripts": {
     "update": "ncu -u -t \"/^@jfxteam.*$/\" && npm update",
     "build": "node_modules/.bin/webpack",
-    "start": "node_modules/.bin/nodemon --watch ./dist index.js --use-dir=./dist",
-    "dev": "node_modules/.bin/nodemon --watch ./dist --inspect index.js --use-dir=./dist"
+    "start": "node_modules/.bin/webpack --env.server"
   },
   "dependencies": {
     "@jfxteam/font-awesome": "^1.0.0",
