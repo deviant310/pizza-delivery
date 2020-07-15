@@ -113,7 +113,7 @@ module.exports = (env = {}) => {
         filename: '[name].css'
       }),
       server ? new WebpackShellPlugin({
-        onBuildEnd:[`nodemon ${[watch ? `--watch ${outputAbsPath}` : '', mode === 'development' ? '--inspect' : ''].filter(v => v).join(' ')} . --use-dir=${outputAbsPath}`]
+        onBuildEnd:[`nodemon ${[watch ? `--watch ${outputAbsPath}` : '', mode === 'development' ? '--inspect-brk=0.0.0.0' : ''].filter(v => v).join(' ')} . --use-dir=${outputAbsPath}`]
       }) : null
     ].filter(v => v)
   }
